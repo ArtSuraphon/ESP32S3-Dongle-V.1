@@ -1,0 +1,27 @@
+{
+  "network": {
+      "wifi": { "ssid": "Hadwan","password" : "0878553384" }
+  },
+  "mqtt": {
+    "server": {
+			"host": "mqtt-smart-thermo.vconf.in.th",
+			"port": 13254,
+			"ssl": false,
+			"client_cert": null,
+			"client_key": null,
+			"server_cert": null,
+			"username": "admin",
+			"password": "pWIQy1rO8r3uzkTaSPJRSEa4pEoP65NOiYWi",
+			"client_id": null
+    },
+    "publish": {
+      "retain": true
+    }
+  },
+	"ble": {
+		"whitename_prefix": [
+			"JXB_TTM"
+		],
+		"whitelist": []
+	}
+}

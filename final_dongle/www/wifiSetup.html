@@ -1,0 +1,192 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Language" content="th" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-Type" content="text/html; charset=window-874" />
+    <meta http-equiv="content-Type" content="text/html; charset=tis-620" />
+    <title>BLE2MQTT</title>
+    <link rel="stylesheet" href="css/mini-default.min.css" />
+    <link rel="stylesheet" href="css/progress.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="js/wifiSetup.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div>
+      <!-- <div class="header-wifi-setup">WIFI CONNECT SETUP</div> -->
+      <div class="header-wifi-setup">ตั้งค่าการเชื่อมต่อ WiFi</div>
+      <fieldset class="title-management">
+        <!-- <legend>Management</legend> -->
+        <legend>จัดการ</legend>
+        <button
+          class="small secondary"
+          id="restart"
+          title="Restart Device"
+          onclick="restart()"
+        >
+          Restart &#8634;
+        </button>
+        <!-- <input
+          type="file"
+          id="firmware-file"
+          accept=".bin"
+          style="display: none"
+          onchange="otaStartUpload('firmware')"
+        />
+        <label for="firmware-file" class="button small primary"
+          >Upload firmware &#128193;</label
+        >
+        <input
+          type="file"
+          id="configuration-file"
+          accept=".bin"
+          style="display: none"
+          onchange="otaStartUpload('configuration')"
+        />
+        <label for="configuration-file" class="button small primary"
+          >Upload configuration &#128193;</label
+        > -->
+        <label
+          for="modal-edit"
+          class="button small warning"
+          onclick="downloadConfig()"
+          >Edit Config
+          <span class="icon-edit inverse" title="edit config file"></span
+        ></label>
+        <input type="checkbox" id="modal-edit" class="modal" />
+        <div>
+          <div class="card" style="max-width: 580px; max-height: 400px">
+            <label for="modal-edit" class="modal-close"></label>
+            <h3 class="section">Edit config file</h3>
+            <p class="section">
+              <textarea id="config-file" rows="10" cols="70"></textarea>
+            </p>
+            <button class="tertiary" id="save" onclick="uploadConfigFile()">
+              Save
+            </button>
+          </div>
+        </div>
+
+        <!-- <label
+          for="modal-filemanager"
+          class="button small warning"
+          onclick="loadFileManager('/')"
+          >File Manager <span class="icon-credit inverse" title="file manager"></span
+        ></label> -->
+
+        <input type="checkbox" id="modal-filemanager" class="modal" />
+        <div>
+          <div class="card" style="max-width: 580px; max-height: 600px">
+            <label for="modal-filemanager" class="modal-close"></label>
+            <h3 class="section">File manager</h3>
+            <div class="section">
+              <label
+                for="file-manager-file"
+                class="button small primary"
+                title="Start upload to current dir"
+                >Upload</label
+              >
+              <input
+                type="file"
+                id="file-manager-file"
+                style="display: none"
+                onchange="uploadFile()"
+              />
+            </div>
+            <div class="section">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="file-manager-list"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div id="progress" class="progress-line" style="display: none"></div>
+      </fieldset>
+      <fieldset class="title-management">
+        <!-- <legend>WiFi Scan List</legend> -->
+        <legend>รายการ WiFi ที่พบ</legend>
+
+        <table>
+          <!-- <thead> -->
+          <!-- <tr>
+                <th>Name SSID</th>
+                <th>Password</th>
+                <th></th>
+                <th>conneect</th>
+                <th>RSSI</th>
+                <th>Auth Mode</th>
+            </tr> -->
+          <!-- </thead> -->
+          <div class="list-wifi" id="wifi-ap-list"></div>
+        </table>
+        <div class="modal" id="myModal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <!-- <button class="close">&times;</button> -->
+              <span class="close" onclick="closeModalWifi()">&times;</span>
+              <h3 class="title-wifi" id="titleWifi">เชื่อมต่อ WiFi</h3>
+              <p>โปรดกรอกรหัสผ่านเพื่อเชื่อมต่อ WiFi</p>
+            </div>
+            <div class="modal-body">
+              <input id="passwordWifi" type="password" style="width: 100%" />
+              <div class="show-password">
+                <input
+                  type="checkbox"
+                  id="showPassword"
+                  onclick="showPasswordWifi()"
+                />
+                <label for="showPassword" onclick=""><p>แสดงรหัสผ่าน</p></label>
+              </div>
+              <div class="copy-box">
+                <p class="text-warning">
+                  * โปรดคัดลอก MAC Address
+                  เพื่อใช้ในการเพิ่มอุปกรณ์เข้าสู่ระบบ ก่อนกดปุ่ม <span class="text-success">"ตกลง"</span> ด้านล่าง
+                </p>
+                <div class="copy-mac-add">
+                  <input
+                    type="text"
+                    readonly
+                    id="copyMacAdd"
+                    onclick="copyToClipboard()"
+                  />
+                  <button
+                    class="copy-btn"
+                    for="copyMacAdd"
+                    onclick="copyToClipboard()"
+                  >
+                    &#128203;
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="submit-btn" id="submit" onclick="connectWifi()">
+                ตกลง
+              </button>
+              <button class="cancle-btn" id="cancel" onclick="closeModalWifi()">
+                ยกเลิก
+              </button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <span id="message" class="toast" style="display: none"
+        >This is a toast message!</span
+      >
+    </div>
+  </body>
+</html>

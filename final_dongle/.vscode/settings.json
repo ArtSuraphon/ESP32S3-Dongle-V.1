@@ -1,0 +1,30 @@
+{
+    "idf.portWin": "COM4",
+    "idf.adapterTargetName": "esp32s3",
+    "idf.openOcdConfigs": [
+        "board/esp32s3-builtin.cfg"
+    ],
+    "idf.flashType": "UART",
+    // "files.associations": {
+    //     "esp_idf_lib_helpers.h": "c"
+    // }
+    "files.associations": {
+        "sstream": "cpp",
+        "iosfwd": "cpp",
+        "xlocbuf": "cpp",
+        "complex": "cpp",
+        "algorithm": "c",
+        "fstream": "c",
+        "xlocmes": "c",
+        "ostream": "c",
+        "ios": "cpp",
+        "functional": "cpp",
+        "regex": "cpp",
+        "system_error": "cpp",
+        "xtr1common": "cpp",
+        "future": "cpp",
+        "random": "cpp",
+        "xlocale": "cpp",
+        "xiosbase": "c"
+    }
+}

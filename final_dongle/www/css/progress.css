@@ -1,0 +1,109 @@
+.progress-line, .progress-line:before {
+    height: 0.75rem;
+    width: 100%;
+    margin: 0;
+}
+.progress-line {
+    background-color: #ddd;
+    display: -webkit-flex;
+    display: flex;
+}
+.progress-line:before {
+    background-color: #308732;
+    content: '';
+    -webkit-animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: running-progress 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@-webkit-keyframes running-progress {
+    0% { margin-left: 0px; margin-right: 100%; }
+    50% { margin-left: 25%; margin-right: 0%; }
+    100% { margin-left: 100%; margin-right: 0; }
+}
+@keyframes running-progress {
+    0% { margin-left: 0px; margin-right: 100%; }
+    50% { margin-left: 25%; margin-right: 0%; }
+    100% { margin-left: 100%; margin-right: 0; }
+}
+#network-config-form-container {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#network-config-form {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+#network-config-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+#network-config-form label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+#network-config-form input[type="text"],
+#network-config-form input[type="password"],
+#network-config-form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+#network-config-form select {
+    cursor: pointer;
+}
+
+#network-config-form .checkbox-label {
+    font-size: 12px;
+    color: #888;
+    display: inline-flex;
+    align-items: center;
+}
+
+#network-config-form input[type="checkbox"] {
+    margin-right: 8px;
+    margin-top: 0;
+}
+#network-config-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#network-config-form button:hover {
+    background-color: #45a049;
+}
+
+#network-config-form .form-section {
+    margin-bottom: 10px;
+}
+
+#network-config-form .form-section:last-child {
+    margin-bottom: 0;
+}
